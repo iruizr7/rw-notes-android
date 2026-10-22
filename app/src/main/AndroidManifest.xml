@@ -120,7 +120,7 @@
             android:name=".ShortcutActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:taskAffinity="org.b3log.siyuan.shorthand"
+            android:taskAffinity="${applicationId}.shorthand"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

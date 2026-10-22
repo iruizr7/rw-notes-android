@@ -24,25 +24,24 @@ gradle.beforeProject { project ->
             assert android.buildTypes.release.signingConfig.name == 'siyuanConfig'
             assert android.buildTypes.release.minifyEnabled
             assert android.buildTypes.release.shrinkResources
-            assert project.extensions.getByName('base').archivesName.get() == "siyuan-${version}"
+            assert project.extensions.getByName('base').archivesName.get() == "rw-notes-${version}"
             android.productFlavors.each { flavor ->
                 assert flavor.ndk.abiFilters == ['arm64-v8a'] as Set
                 assert flavor.manifestPlaceholders.CHANNEL == flavor.name
             }
             variants.each { variant ->
                 def debug = variant.buildType == 'debug'
-                assert variant.applicationId.get() == "org.b3log.siyuan${debug ? '.debug' : ''}"
+                assert variant.applicationId.get() == "com.parendum.rwnotes${debug ? '.debug' : ''}"
                 assert variant.buildConfigFields.get().CHANNEL.value == "\"${variant.flavorName}\""
                 def appName = variant.resValues.get().find { entry ->
                     entry.key.type == 'string' && entry.key.name == 'app_name'
                 }.value.value
-                def expectedName = debug ? 'SiYuan-Debug' :
-                        (variant.flavorName in ['cn', 'huawei'] ? '思源笔记' : 'SiYuan')
+                def expectedName = debug ? 'RW Notes Debug' : 'RW Notes'
                 assert appName == expectedName
                 variant.outputs.each { output ->
                     assert output.versionCode.get() == project.rootProject.siyuanVersionCode
                     assert output.versionName.get() == version
-                    def base = "siyuan-${version}-${variant.flavorName}-${variant.buildType}"
+                    def base = "rw-notes-${version}-${variant.flavorName}-${variant.buildType}"
                     def name = output.outputFileName.get()
                     if (debug) {
                         assert name.startsWith(base + '-') && name.substring(base.length()) ==~ /-\d{14}\.apk/

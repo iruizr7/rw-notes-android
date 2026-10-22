@@ -369,7 +369,7 @@ public final class JSAndroid {
 
             final Uri contentUri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID, imageFile);
             final ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
-            final ClipData clip = ClipData.newUri(activity.getContentResolver(), "Copied img from SiYuan", contentUri);
+            final ClipData clip = ClipData.newUri(activity.getContentResolver(), "Copied img from RW Notes", contentUri);
             clipboard.setPrimaryClip(clip);
             cleanupLegacyImageClipboard();
         } catch (final Exception e) {
@@ -413,14 +413,14 @@ public final class JSAndroid {
     @JavascriptInterface
     public void writeClipboard(final String content) {
         final ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
-        final ClipData clip = ClipData.newPlainText("Copied text from SiYuan", content);
+        final ClipData clip = ClipData.newPlainText("Copied text from RW Notes", content);
         clipboard.setPrimaryClip(clip);
     }
 
     @JavascriptInterface
     public void writeHTMLClipboard(final String text, final String html) {
         final ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
-        final ClipData clip = ClipData.newHtmlText("Copied html from SiYuan", text, html);
+        final ClipData clip = ClipData.newHtmlText("Copied html from RW Notes", text, html);
         clipboard.setPrimaryClip(clip);
     }
 
@@ -430,7 +430,7 @@ public final class JSAndroid {
         final String[] mimeTypes = new String[]{ClipDescription.MIMETYPE_TEXT_PLAIN, ClipDescription.MIMETYPE_TEXT_HTML, "text/siyuan"};
         final ClipData.Item standardItem = new ClipData.Item(text, html, null, null);
         final ClipData.Item siyuanItem = new ClipData.Item(siyuanHTML);
-        ClipData clipData = new ClipData("Copied html from SiYuan", mimeTypes, standardItem);
+        ClipData clipData = new ClipData("Copied html from RW Notes", mimeTypes, standardItem);
         clipData.addItem(siyuanItem);
         clipboard.setPrimaryClip(clipData);
     }

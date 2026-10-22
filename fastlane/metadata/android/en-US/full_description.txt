@@ -1,4 +1,4 @@
-SiYuan is an open-source, privacy-first, self-hosted knowledge workspace where humans and AI agents work together.
+RW Notes is an open-source, privacy-first, self-hosted knowledge workspace where humans and AI agents work together.
 
 <h3>Features</h3>
 Most features are free, even for commercial use.

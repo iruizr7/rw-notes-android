@@ -3,7 +3,7 @@ tasks.register('buildReleaseTask', Copy) {
   description = 'Building release version ${rootProject.siyuanVersionName}'
 
   def versionName = rootProject.siyuanVersionName
-  def releaseDirPath = "$rootDir/app/build-release/siyuan-${versionName}-all"
+  def releaseDirPath = "$rootDir/app/build-release/rw-notes-${versionName}-all"
 
   delete releaseDirPath
 

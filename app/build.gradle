@@ -10,7 +10,7 @@ apply from: rootProject.file('buildRelease.gradle')
 
 // 1. 配置 App Bundle (.aab) 的基础文件名
 base {
-    archivesName = "siyuan-${rootProject.siyuanVersionName}"
+    archivesName = "rw-notes-${rootProject.siyuanVersionName}"
 }
 
 tasks.withType(Copy).configureEach {
@@ -24,7 +24,7 @@ android {
     enableKotlin = false
 
     defaultConfig {
-        applicationId = "org.b3log.siyuan"
+        applicationId = "com.parendum.rwnotes"
         minSdk = 26
         targetSdk = 36
         versionCode = rootProject.siyuanVersionCode
@@ -45,8 +45,8 @@ android {
             shrinkResources = true
 
             // 此处优先级太高，渠道处配置 resValue 不会生效，故放到了 productFlavors 多渠道打包处处理
-            // resValue "string", "app_name", "SiYuan"
-            resValue "string", "app_package_name", "org.b3log.siyuan"
+            // resValue "string", "app_name", "RW Notes"
+            resValue "string", "app_package_name", "com.parendum.rwnotes"
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -55,8 +55,8 @@ android {
 
             minifyEnabled = false
 
-            resValue "string", "app_name", "SiYuan-Debug"
-            resValue "string", "app_package_name", "org.b3log.siyuan.debug"
+            resValue "string", "app_name", "RW Notes Debug"
+            resValue "string", "app_package_name", "com.parendum.rwnotes.debug"
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -97,7 +97,7 @@ androidComponents {
         def suffix = buildType == "release" ? "" : "-${new Date().format('yyyyMMddHHmmss')}"
         variant.outputs.each { output ->
             output.outputFileName.set(output.versionName.map { version ->
-                "siyuan-${version}-${flavorName}-${buildType}${suffix}.apk"
+                "rw-notes-${version}-${flavorName}-${buildType}${suffix}.apk"
             })
         }
     }

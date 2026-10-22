@@ -132,7 +132,7 @@ public class KernelService extends Service {
                 "Kernel Service",
                 NotificationManager.IMPORTANCE_MIN   // lowest: no sound, no peek, collapsed in shade
         );
-        channel.setDescription("Keeps the SiYuan kernel running in the background");
+        channel.setDescription("Keeps the RW Notes kernel running in the background");
         channel.setShowBadge(false);
         channel.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
         channel.enableLights(false);
@@ -161,7 +161,7 @@ public class KernelService extends Service {
 
         return new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.icon)
-                .setContentTitle("SiYuan")
+                .setContentTitle(getString(R.string.app_name))
                 .setContentText("Kernel is running")
                 .setOngoing(true)
                 .setSilent(true)                                    // no sound
