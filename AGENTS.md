@@ -7,3 +7,5 @@ Use English for primary documentation. Follow the RW Notes core `specs/` files i
 Use RW Notes branding and the slogan "Your better brain". Regenerate icons with `scripts/generate-branding.py` from the core SVG; do not manually alter generated assets. Preserve copyright/license notices. Keep one English top-level README.
 
 Read README.md for build inputs and application IDs. Never commit signing keys or credentials. Do not claim native build success from static checks alone.
+
+The selected baseline is documented in `../rw-notes/specs/upstream-baseline.md`. Do not merge a newer `main` automatically. Preserve the exact baseline plus fork changes until an upgrade is selected.

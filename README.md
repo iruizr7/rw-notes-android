@@ -17,7 +17,7 @@ Google Play/F-Droid listings for SiYuan are not RW Notes distribution channels. 
 
 ## Development branches
 
-`main` tracks the official upstream repository. Work on `rw-notes` and merge upstream updates through `main`. `origin` is our fork; `upstream` is the official repository.
+`main` tracks the official upstream repository. Work on `rw-notes`; select baseline upgrades explicitly after fetching `main`. `origin` is our fork; `upstream` is the official repository.
 
 ## Branding and compatibility
 
@@ -31,4 +31,10 @@ This uses the core icon generator and requires Python, Pillow, and Inkscape. Gen
 
 Keep upstream copyright/license notices, internal source names, kernel paths, JavaScript bridges, and the `siyuan:` protocol for compatibility. The shared frontend and kernel must be built from RW Notes; these native changes alone do not rebrand an upstream frontend bundle. Inherited cloud/purchase integrations remain scheduled for removal under the core v0 plan.
 
-The native upstream baseline is newer than the current core baseline. Select and test a compatible core/native revision pair before packaging; the existing upstream version fields do not declare v0 feature completion.
+The selected baseline is upstream 3.8.8; see the baseline section below. Version fields do not declare v0 feature completion.
+
+## Selected baseline
+
+Core/frontend/kernel: SiYuan `v3.8.8` (`bfe36100477b7bbd66db1a8b8cff5547b2ccdb59`), plus RW Notes changes. Native source: `89c50f2deaccabfab7b9fe5f94d172887f45b95f`. Build matching artifacts from the adjacent `../rw-notes` checkout. The authoritative [baseline record](https://github.com/iruizr7/rw-notes/blob/rw-notes/specs/upstream-baseline.md) lists provenance and validation limits. Full native packaging and device checks remain pending.
+
+The source configuration is restored to the 3.8.8 release (version code 439). Later 3.8.9 alpha changes remain in Git history but are reversed; future upgrades must deliberately reapply those changes. RW Notes branding and the adapted variant checks are retained.

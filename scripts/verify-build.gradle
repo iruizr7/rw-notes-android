@@ -17,10 +17,9 @@ gradle.beforeProject { project ->
             assert android.compileSdk == 36
             assert android.defaultConfig.minSdk == 26
             assert android.defaultConfig.targetSdk == 36
-            assert android.compileOptions.sourceCompatibility == JavaVersion.VERSION_17
-            assert android.compileOptions.targetCompatibility == JavaVersion.VERSION_17
-            assert !android.enableKotlin
-            assert android.buildFeatures.resValues
+            assert android.compileOptions.sourceCompatibility == JavaVersion.VERSION_1_8
+            assert android.compileOptions.targetCompatibility == JavaVersion.VERSION_1_8
+            assert project.findProperty("android.defaults.buildfeatures.resvalues") == "true"
             assert android.buildTypes.release.signingConfig.name == 'siyuanConfig'
             assert android.buildTypes.release.minifyEnabled
             assert android.buildTypes.release.shrinkResources
@@ -30,19 +29,17 @@ gradle.beforeProject { project ->
                 assert flavor.manifestPlaceholders.CHANNEL == flavor.name
             }
             variants.each { variant ->
-                def debug = variant.buildType == 'debug'
-                assert variant.applicationId.get() == "com.parendum.rwnotes${debug ? '.debug' : ''}"
-                assert variant.buildConfigFields.get().CHANNEL.value == "\"${variant.flavorName}\""
-                def appName = variant.resValues.get().find { entry ->
-                    entry.key.type == 'string' && entry.key.name == 'app_name'
-                }.value.value
+                def debug = variant.buildType.name == 'debug'
+                assert variant.applicationId == "com.parendum.rwnotes${debug ? '.debug' : ''}"
+                assert variant.mergedFlavor.buildConfigFields.CHANNEL.value == "\"${variant.flavorName}\""
+                def appName = (android.buildTypes.getByName(variant.buildType.name).resValues.values().find { it.name == 'app_name' } ?: android.productFlavors.getByName(variant.flavorName).resValues.values().find { it.name == 'app_name' }).value
                 def expectedName = debug ? 'RW Notes Debug' : 'RW Notes'
                 assert appName == expectedName
                 variant.outputs.each { output ->
-                    assert output.versionCode.get() == project.rootProject.siyuanVersionCode
-                    assert output.versionName.get() == version
-                    def base = "rw-notes-${version}-${variant.flavorName}-${variant.buildType}"
-                    def name = output.outputFileName.get()
+                    assert variant.versionCode == project.rootProject.siyuanVersionCode
+                    assert variant.versionName == version
+                    def base = "rw-notes-${version}-${variant.flavorName}-${variant.buildType.name}"
+                    def name = output.outputFileName
                     if (debug) {
                         assert name.startsWith(base + '-') && name.substring(base.length()) ==~ /-\d{14}\.apk/
                     } else {
@@ -53,8 +50,7 @@ gradle.beforeProject { project ->
             println "Verified ${variants.size()} variants: APK names, channels, labels, SDKs, ABI and signing configuration"
         }
     }
-    project.plugins.withId('com.android.application') {
-        def components = project.extensions.getByName('androidComponents')
-        components.onVariants(components.selector().all()) { variant -> variants.add(variant) }
+    project.afterEvaluate {
+        project.extensions.getByName('android').applicationVariants.all { variant -> variants.add(variant) }
     }
 }
